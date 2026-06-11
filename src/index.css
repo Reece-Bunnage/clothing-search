@@ -1,0 +1,93 @@
+/*
+  ─────────────────────────────────────────────────────────────────
+  src/index.css  —  GLOBAL STYLES
+  These styles apply to the whole page (body, header, footer).
+  Component-specific styles live in App.css.
+  ─────────────────────────────────────────────────────────────────
+*/
+
+/* Import two fonts from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:wght@300;400;500&display=swap');
+
+/*
+  CSS CUSTOM PROPERTIES (variables)
+  Define our color palette once here. Use var(--name) anywhere below.
+  To change the whole theme, just edit these values.
+*/
+:root {
+  --cream:  #faf8f4;   /* page background */
+  --sand:   #f0ebe0;   /* card / input background */
+  --tan:    #e0d8c8;   /* borders */
+  --brown:  #8b6f47;   /* accent (buttons, focus) */
+  --dark:   #2c1f0e;   /* main text */
+  --muted:  #7a6a56;   /* secondary text */
+  --white:  #ffffff;
+  --shadow: 0 4px 24px rgba(44, 31, 14, 0.10);
+}
+
+/* RESET — remove browser default margin/padding */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* BASE PAGE */
+body {
+  font-family: 'DM Sans', sans-serif;
+  background-color: var(--cream);
+  color: var(--dark);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── HEADER ── */
+header {
+  width: 100%;
+  padding: 2.5rem 2rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--tan);
+  background: var(--cream);
+}
+
+.header-eyebrow {
+  font-size: 0.75rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--brown);
+  margin-bottom: 0.5rem;
+}
+
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 500;
+  color: var(--dark);
+  line-height: 1.15;
+}
+
+.header-subtitle {
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+  font-weight: 300;
+}
+
+/* ── MAIN AREA ── */
+main {
+  width: 100%;
+  max-width: 680px;
+  padding: 2rem 1rem;
+  /* flex: 1 pushes the footer to the bottom */
+  flex: 1;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 1.5rem;
+  font-size: 0.78rem;
+  color: var(--muted);
+  text-align: center;
+}

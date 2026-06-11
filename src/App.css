@@ -1,0 +1,423 @@
+/*
+  ─────────────────────────────────────────────────────────────────
+  src/App.css  —  COMPONENT STYLES
+  Styles for the search card, form fields, checkboxes, and button.
+  These are imported by App.jsx.
+  ─────────────────────────────────────────────────────────────────
+*/
+
+/* ── SEARCH CARD ── */
+/* The white rounded box that holds the whole form */
+.card {
+  background: var(--white);
+  border: 1px solid var(--tan);
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: var(--shadow);
+}
+
+/* ── FORM GRID ── */
+/*
+  CSS Grid with 2 equal columns.
+  "1fr" = 1 "fraction" of available space.
+  So "repeat(2, 1fr)" = two columns, each taking half the space.
+*/
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;  /* space between grid cells */
+}
+
+/*
+  Fields that should stretch across both columns (full width).
+  "1 / -1" = start at column 1, end at the last column edge.
+*/
+.full-width {
+  grid-column: 1 / -1;
+}
+
+/* ── INDIVIDUAL FIELD (label + input stacked) ── */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* The small uppercase label above each input */
+.field label {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Styles shared by ALL input types */
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 0.65rem 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: var(--dark);
+  background: var(--sand);
+  border: 1.5px solid var(--tan);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.2s, background 0.2s;
+  /* Remove browser default styling on <select> */
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+/* Highlight border when a field is focused (clicked into) */
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--brown);
+  background: var(--white);
+}
+
+/* Gray placeholder text inside empty inputs */
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #b5a898;
+}
+
+/*
+  SELECT WRAPPER
+  We wrap <select> in a div so we can add a custom dropdown arrow.
+  "position: relative" lets the arrow be positioned inside it.
+*/
+.select-wrapper {
+  position: relative;
+}
+
+/* The ▾ arrow icon, drawn with CSS (not an image) */
+.select-wrapper::after {
+  content: '▾';
+  position: absolute;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);  /* vertically center it */
+  color: var(--muted);
+  pointer-events: none;  /* let clicks pass through to the <select> */
+  font-size: 0.85rem;
+}
+
+/* Textarea: fixed height, not user-resizable */
+.field textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+/* ── DIVIDER ── */
+.divider {
+  border: none;
+  border-top: 1px solid var(--tan);
+  margin: 1.75rem 0;
+}
+
+/* ── STORE CHECKBOXES ── */
+
+/* "SEARCH THESE STORES" label */
+.sites-label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.75rem;
+}
+
+/*
+  Grid of store checkboxes.
+  "auto-fill" = fit as many columns as possible.
+  "minmax(140px, 1fr)" = each column is at least 140px wide.
+*/
+.sites-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem;
+}
+
+/* Each store checkbox + label */
+.site-option {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  padding: 0.5rem 0.75rem;
+  background: var(--sand);
+  border: 1.5px solid var(--tan);
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+  /* <label> elements are inline by default; we make it a flex container */
+  user-select: none;  /* don't highlight text when clicking */
+}
+
+/* Highlighted style when a store is checked */
+.site-option.checked {
+  background: #fdf6ee;
+  border-color: var(--brown);
+}
+
+/* The actual checkbox input */
+.site-option input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--brown);  /* colors the checkmark */
+  cursor: pointer;
+  flex-shrink: 0;  /* don't let it shrink */
+}
+
+.site-option span {
+  font-size: 0.9rem;
+  color: var(--dark);
+}
+
+/* ── SEARCH BUTTON ── */
+.btn-search {
+  width: 100%;
+  margin-top: 1.75rem;
+  padding: 0.9rem;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: var(--white);
+  background: var(--brown);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+.btn-search:hover {
+  background: #7a5f39;
+}
+
+.btn-search:active {
+  transform: scale(0.985);
+}
+
+/* Grayed out when no stores are selected */
+.btn-search:disabled {
+  background: var(--tan);
+  color: var(--muted);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── STATUS MESSAGE ── */
+/* Shown below the button after a search */
+.status-message {
+  margin-top: 1rem;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.status-message.success {
+  background: #f0f9f0;
+  color: #2d6a2d;
+  border: 1px solid #b8ddb8;
+}
+
+.status-message.warning {
+  background: #fffbea;
+  color: #7a5c00;
+  border: 1px solid #f0d88a;
+}
+
+/* ── RESPONSIVE: PHONES ── */
+/*
+  @media = "apply these rules only when screen width ≤ 500px"
+  On small screens we switch to a single-column layout.
+*/
+@media (max-width: 500px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  .full-width {
+    grid-column: 1;
+  }
+  .card {
+    padding: 1.25rem;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   PREVIEW QUERY + SEARCH HISTORY — paste at bottom of App.css
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── PREVIEW BOX ── */
+.preview-box {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-top: 1.25rem;
+  padding: 0.85rem 1rem;
+  background: var(--sand);
+  border: 1.5px solid var(--tan);
+  border-radius: 10px;
+  transition: border-color 0.2s;
+}
+
+.preview-box:has(.preview-term) {
+  border-color: #c8b89a;
+}
+
+.preview-label {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.preview-term {
+  font-style: normal;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--dark);
+  line-height: 1.4;
+  word-break: break-word;
+  quotes: '"' '"';
+}
+.preview-term::before { content: open-quote;  color: var(--brown); }
+.preview-term::after  { content: close-quote; color: var(--brown); }
+
+.preview-empty {
+  font-size: 0.88rem;
+  color: #b5a898;
+  font-style: italic;
+}
+
+/* ── HISTORY CARD ── */
+.history-card {
+  margin-top: 1.25rem;
+  background: var(--white);
+  border: 1px solid var(--tan);
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: var(--shadow);
+}
+
+.history-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.history-title {
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.btn-clear-history {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.btn-clear-history:hover {
+  color: #c0392b;
+  background: #fdf0ef;
+}
+
+.history-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.history-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.65rem 0.85rem;
+  background: var(--sand);
+  border: 1.5px solid var(--tan);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+  gap: 0.75rem;
+}
+.history-item:hover {
+  border-color: var(--brown);
+  background: #fdf6ee;
+}
+
+.history-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+}
+
+.history-term {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--dark);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.history-meta {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.history-item-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.history-rerun-hint {
+  font-size: 0.75rem;
+  color: var(--brown);
+  opacity: 0;
+  transition: opacity 0.15s;
+  white-space: nowrap;
+}
+.history-item:hover .history-rerun-hint {
+  opacity: 1;
+}
+
+.btn-delete-history {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--muted);
+  padding: 0.1rem 0.3rem;
+  border-radius: 4px;
+  transition: color 0.15s, background 0.15s;
+}
+.btn-delete-history:hover {
+  color: #c0392b;
+  background: #fdf0ef;
+}
+
+@media (max-width: 500px) {
+  .history-card { padding: 1rem; }
+  .history-rerun-hint { display: none; }
+}
